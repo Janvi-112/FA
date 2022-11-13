@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--  
+    Document Title
+    =============================================
+    -->
+  <title>Football Analysis</title>
+  <!--  
+    Favicons
+    =============================================
+    -->
+  <link rel="apple-touch-icon" sizes="57x57"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-57x57.png')}}">
+  <link rel="apple-touch-icon" sizes="60x60"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-60x60.png')}}">
+  <link rel="apple-touch-icon" sizes="72x72"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-72x72.png')}}">
+  <link rel="apple-touch-icon" sizes="76x76"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-76x76.png')}}">
+  <link rel="apple-touch-icon" sizes="114x114"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-114x114.png')}}">
+  <link rel="apple-touch-icon" sizes="120x120"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-120x120.png')}}">
+  <link rel="apple-touch-icon" sizes="144x144"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-144x144.png')}}">
+  <link rel="apple-touch-icon" sizes="152x152"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-152x152.png')}}">
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-180x180.png')}}">
+  <link rel="icon" type="image/png" sizes="192x192"
+    href="{{url_for('static', filename='assets/images/favicons/android-icon-192x192.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="96x96"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-96x96.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename='/manifest.json')}}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage"
+    content="{{url_for('static', filename='assets/images/favicons/ms-icon-144x144.png')}}">
+  <meta name="theme-color" content="#ffffff">
+  <!--  
+    Stylesheets
+    =============================================
+    
+    -->
+  <!-- Default stylesheets-->
+  <link href="{{url_for('static', filename='assets/lib/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Template specific stylesheets-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/animate.css/animate.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/components-font-awesome/css/font-awesome.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/et-line-font/et-line-font.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/flexslider/flexslider.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/owl.carousel/dist/assets/owl.carousel.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/magnific-popup/dist/magnific-popup.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/simple-text-rotator/simpletextrotator.css')}}" rel="stylesheet">
+  <!-- Main stylesheet and color file-->
+  <link href="{{url_for('static', filename='assets/css/style.css')}}" rel="stylesheet">
+  <link id="color-scheme" href="{{url_for('static', filename='assets/css/colors/default.css')}}" rel="stylesheet">
+</head>
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <main>
+    <!-- <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div> -->
+    <section class="bg-dark-30 showcase-page-header module parallax-bg"
+      data-background="{{url_for('static', filename='assets/images/showcase_bg.jpg')}}">
+      <div class="titan-caption">
+        <div class="caption-content">
+          <div class="font-alt mb-30 titan-title-size-1">Powerful.ANALYTICAL.</div>
+          <div class="font-alt mb-40 titan-title-size-4">Player Performace</div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <br><br>
+        <div class="row ustify-content-center">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Player Position</th>
+                <th scope="col">Player Name</th>
+                <th scope="col">Player Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in data1 %}
+              <tr>
+                {% for row in item %}
+                <th>{{row}}</th>
+                {% endfor %}
+                <th><button type="button" class="btn btn-primary" onclick="getAnalytics()">Analytics</button></th>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+    <section>
+      <center>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+      </center>
+    </section>
+  </main>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  
+    JavaScripts
+    =============================================
+    -->
+  <script src="{{url_for('static', filename='assets/lib/jquery/dist/jquery.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/wow/dist/wow.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/isotope/dist/isotope.pkgd.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/imagesloaded/imagesloaded.pkgd.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/flexslider/jquery.flexslider.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/owl.carousel/dist/owl.carousel.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/smoothscroll.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/magnific-popup/dist/jquery.magnific-popup.js')}}"></script>
+  <script
+    src="{{url_for('static', filename='assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/plugins.js')}}"></script>
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  <script>
+    function run(x) {
+      alert(x);
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+  <script>
+    var data = [0,0,0,0,0,0]
+    var myChart = new Chart("myChart", {
+      type: "radar",
+      data: {
+        labels: [
+          'pace',
+          'shooting',
+          'passing',
+          'dribbling',
+          'defending',
+          'physic'
+        ],
+        datasets: [{
+          label: 'Output',
+          data: data,
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+      },
+      options: {
+        elements: {
+          line: {
+            borderWidth: 3
+          }
+        }
+      },
+    });
+  </script>
+  <script>
+    function getAnalytics(){
+      var x1 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var x2 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var x3 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var x4 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var x5 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var x6 = Math.floor(Math.random() * (100 - 50) ) + 50;
+      var data = [x1,x2,x3,x4,x5,x6]
+      var myChart = new Chart("myChart", {
+        type: "radar",
+        data: {
+          labels: [
+            'PACE',
+            'SHOOTING',
+            'PASSING',
+            'DRIBBLING',
+            'DEFENDING',
+            'PHYSIC'
+          ],
+          datasets: [{
+            label: 'Output',
+            data: data,
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+          }]
+        },
+        options: {
+          elements: {
+            line: {
+              borderWidth: 3
+            }
+          }
+        },
+      });
+    }
+  </script>
+</body>
+
+</html>

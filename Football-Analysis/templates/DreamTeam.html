@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--  
+    Document Title
+    =============================================
+    -->
+  <title>Football Analysis</title>
+  <!--  
+    Favicons
+    =============================================
+    -->
+  <link rel="apple-touch-icon" sizes="57x57"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-57x57.png')}}">
+  <link rel="apple-touch-icon" sizes="60x60"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-60x60.png')}}">
+  <link rel="apple-touch-icon" sizes="72x72"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-72x72.png')}}">
+  <link rel="apple-touch-icon" sizes="76x76"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-76x76.png')}}">
+  <link rel="apple-touch-icon" sizes="114x114"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-114x114.png')}}">
+  <link rel="apple-touch-icon" sizes="120x120"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-120x120.png')}}">
+  <link rel="apple-touch-icon" sizes="144x144"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-144x144.png')}}">
+  <link rel="apple-touch-icon" sizes="152x152"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-152x152.png')}}">
+  <link rel="apple-touch-icon" sizes="180x180"
+    href="{{url_for('static', filename='assets/images/favicons/apple-icon-180x180.png')}}">
+  <link rel="icon" type="image/png" sizes="192x192"
+    href="{{url_for('static', filename='assets/images/favicons/android-icon-192x192.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="96x96"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-96x96.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="{{url_for('static', filename='assets/images/favicons/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename='/manifest.json')}}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage"
+    content="{{url_for('static', filename='assets/images/favicons/ms-icon-144x144.png')}}">
+  <meta name="theme-color" content="#ffffff">
+  <!--  
+    Stylesheets
+    =============================================
+    
+    -->
+  <!-- Default stylesheets-->
+  <link href="{{url_for('static', filename='assets/lib/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <!-- Template specific stylesheets-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/animate.css/animate.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/components-font-awesome/css/font-awesome.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/et-line-font/et-line-font.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/flexslider/flexslider.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/owl.carousel/dist/assets/owl.carousel.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css')}}"
+    rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/magnific-popup/dist/magnific-popup.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='assets/lib/simple-text-rotator/simpletextrotator.css')}}" rel="stylesheet">
+  <!-- Main stylesheet and color file-->
+  <link href="{{url_for('static', filename='assets/css/style.css')}}" rel="stylesheet">
+  <link id="color-scheme" href="{{url_for('static', filename='assets/css/colors/default.css')}}" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyC5GACXTBuXbGAT1_a-XXEHi73z7YatQOE",
+      authDomain: "football-analysis-c3c65.firebaseapp.com",
+      databaseURL: "https://football-analysis-c3c65-default-rtdb.firebaseio.com/",
+      projectId: "football-analysis-c3c65",
+      storageBucket: "football-analysis-c3c65.appspot.com",
+      messagingSenderId: "768824177669",
+      appId: "1:768824177669:web:c7e49af537d06d42e7586c",
+      measurementId: "G-XHX02V5MET"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script defe>
+    function getLists() {
+      let dbRef = firebase.database().ref('/Teams/Teams');
+      dbRef.once('value', function (snapshot) {
+        let values = snapshot.val();
+        var select = document.createElement("select");
+        select.name = "Select a team";
+        select.id = "list_team_1"
+
+        for (const val of values) {
+          var option = document.createElement("option");
+          option.value = val;
+          option.text = val.charAt(0).toUpperCase() + val.slice(1);
+          select.appendChild(option);
+        }
+
+        var label = document.createElement("label");
+        label.innerHTML = "Choose your team 1: "
+        label.htmlFor = "team";
+
+        document.getElementById("list1").appendChild(label).appendChild(select);
+
+        select = document.createElement("select");
+        select.name = "Select a team";
+        select.id = "list_team_2"
+
+        for (const val of values) {
+          var option = document.createElement("option");
+          option.value = val;
+          option.text = val.charAt(0).toUpperCase() + val.slice(1);
+          select.appendChild(option);
+        }
+
+        var filt = function () {
+          var value1 = document.getElementById("list_team_1").value;
+          var value2 = document.getElementById("list_team_2").value;
+          if (value1.localeCompare(value2) === 0)
+            alert('Team 1 same as Team 2');
+        }
+
+        label = document.createElement("label");
+        label.innerHTML = "Choose your team 2: "
+        label.htmlFor = "team";
+
+        document.getElementById("list2").appendChild(label).appendChild(select);
+        document.getElementById("list_team_2").onchange = filt;
+      })
+    }
+
+    function getTeams() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", '/DreamTeam', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({
+        value1: document.getElementById('list_team_1').value,
+        value2: document.getElementById('list_team_2').value,
+      }));
+      window.location.href = '/DreamTeamOutput'
+    }
+  </script>
+</head>
+
+<body onload="getLists()" data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+  <main>
+    <!-- <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div> -->
+    <section class="bg-dark-30 showcase-page-header module parallax-bg"
+      data-background="{{url_for('static', filename='assets/images/showcase_bg.jpg')}}">
+      <div class="titan-caption">
+        <div class="caption-content">
+          <div class="font-alt mb-30 titan-title-size-1">Powerful.ANALYTICAL.</div>
+          <div class="font-alt mb-40 titan-title-size-4">Dream Team</div>
+        </div>
+      </div>
+    </section>
+    <br><br>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <center>
+            <div id="list1"></div>
+          </center>
+        </div>
+        <div class="col-md-6">
+          <center>
+            <div id="list2"></div>
+          </center>
+        </div>
+      </div>
+      <center>
+        <div class="form-group form-button">
+          <input type="submit" name="signup" onclick="getTeams()" id="signup" class="form-submit" value="geteam" />
+        </div>
+      </center>
+    </div>
+  </main>
+  <!--  
+    JavaScripts
+    =============================================
+    -->
+  <script src="{{url_for('static', filename='assets/lib/jquery/dist/jquery.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/wow/dist/wow.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/isotope/dist/isotope.pkgd.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/imagesloaded/imagesloaded.pkgd.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/flexslider/jquery.flexslider.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/owl.carousel/dist/owl.carousel.min.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/smoothscroll.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/lib/magnific-popup/dist/jquery.magnific-popup.js')}}"></script>
+  <script
+    src="{{url_for('static', filename='assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/plugins.js')}}"></script>
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body>
+
+</html>

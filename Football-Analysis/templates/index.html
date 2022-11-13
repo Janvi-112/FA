@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Football Analysis</title>
+        <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='assets/favicon.ico')}}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-storage.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyC5GACXTBuXbGAT1_a-XXEHi73z7YatQOE",
+                authDomain: "football-analysis-c3c65.firebaseapp.com",
+                databaseURL: "https://football-analysis-c3c65-default-rtdb.firebaseio.com/",
+                projectId: "football-analysis-c3c65",
+                storageBucket: "football-analysis-c3c65.appspot.com",
+                messagingSenderId: "768824177669",
+                appId: "1:768824177669:web:c7e49af537d06d42e7586c",
+                measurementId: "G-XHX02V5MET"
+            };
+    
+            firebase.initializeApp(firebaseConfig);
+        </script>
+    </head>
+    <body>
+        <!-- Background Video-->
+        <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop"><source src="{{url_for('static', filename='assets/mp4/bg.mp4')}}" type="video/mp4" /></video>
+        <!-- Masthead-->
+        <div class="masthead">
+            <div class="masthead-content text-white">
+                <div class="container-fluid px-4 px-lg-0">
+                    
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <div class="register-form form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Full Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_name"><i class="zmdi zmdi-email"></i></label>
+                                <input type="text" name="user_name" id="user_name" placeholder="User Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Re-enter password"/>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="league"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="league" id="league" placeholder="League"/>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="team"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="team" id="team" placeholder="Your Team"/>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" onclick="run()" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <a href="/Selection"></a>
+                            </div>
+                            <a href="/Signin" class="signup-image-link">I am already member</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Social Icons-->
+        <!-- For more icon options, visit https://fontawesome.com/icons?d=gallery&p=2&s=brands-->
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+            function run() {
+                try {
+                    let name = document.getElementById("name").value;
+                    let user_name = document.getElementById("user_name").value;
+                    let pass = document.getElementById("pass").value;
+                    let re_pass = document.getElementById("re_pass").value;
+                    let team = document.getElementById("team").value;
+                    console.log(name, user_name, pass, re_pass, team);
+
+                    if(pass == re_pass)
+                    {
+                        // let dbRef = firebase.database().ref('/Users');
+                        // dbRef.once('value', function(snapshot) {
+                        //     console.log(snapshot.val());
+                        //     let data = snapshot.val();
+                        //     Object.values(data).forEach((val) => {
+                        //         console.log(val);
+                        //         if(val.User_Name == user_name)
+                        //         {
+                        //             alert("User already exist");
+                        //             throw "exit";
+                        //         }
+                        //     })
+                        // })
+                        var dataRef = firebase.database().ref('/Users').push();
+                        dataRef.set({
+                            "Name": name,
+                            "User_Name": user_name,
+                            "Password": pass,
+                            "Team": team
+                        }).then(() => {
+                            alert("New user registered");
+                            window.location.href = "/Signin";
+                        })
+                    }
+                    else
+                    {
+                        alert("Password not matched");
+                    }
+                }
+                catch (e){
+                    console.log(e);
+                }
+                
+            }
+        </script>
+        
+    </body>
+</html>
